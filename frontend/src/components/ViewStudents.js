@@ -13,9 +13,9 @@ const ViewStudents = () => {
     age: "",
   });
 
-  // useEffect(() => {
-  //   fetchStudents();
-  // }, []);
+  useEffect(() => {
+    fetchStudents();
+  }, []);
 
   const fetchStudents = async () => {
     try {
