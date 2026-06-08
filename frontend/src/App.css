@@ -1,0 +1,405 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
+/* =========================================
+   1. Global Styles, Layout & Neon Scrollbar
+   ========================================= */
+
+#root,
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+  color: #fff;
+  font-family: 'Poppins', sans-serif;
+}
+
+
+/* Neon Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0f0c29;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #a18cd1, #fbc2eb);
+  border-radius: 5px;
+  box-shadow: 0 0 10px #a18cd1;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #fbc2eb;
+}
+
+.main-content {
+  flex: 1;
+  padding-top: 80px;
+  padding-bottom: 40px;
+  width: 100%;
+}
+
+/* =========================================
+   2. Animations
+   ========================================= */
+.hidden-init {
+  opacity: 0;
+  transform: translateY(40px);
+}
+
+.animate-fade-up {
+  animation: fadeUp 0.8s ease-out forwards;
+}
+
+@keyframes fadeUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* =========================================
+   3. Typography & Neon Effects
+   ========================================= */
+.neon-text {
+  color: #fff;
+  text-shadow: 0 0 10px #a18cd1, 0 0 20px #a18cd1, 0 0 40px #fbc2eb;
+}
+
+.view-heading {
+  font-size: 2.5rem;
+  font-weight: 800;
+  background: linear-gradient(90deg, #fbc2eb, #a18cd1, #fbc2eb);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 2rem !important;
+  animation: gradientShift 4s ease infinite;
+}
+
+/* =========================================
+   4. Navbar Styles
+   ========================================= */
+.modern-nav {
+  background: rgba(17, 25, 40, 0.85) !important;
+  backdrop-filter: blur(16px) saturate(180%) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+  padding: 15px 0 !important;
+  z-index: 1050 !important;
+}
+
+.animated-brand {
+  background: linear-gradient(90deg, #4ae5fd, #ec4c20, #7336ff, #eb27b3, #eb6464);
+  background-size: 300% 300%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 800 !important;
+  animation: gradientShift 4s ease infinite;
+}
+
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.nav-link-modern {
+  color: rgba(255, 255, 255, 0.9) !important;
+  font-weight: 500;
+  margin: 0 5px;
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+.nav-link-modern::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(90deg, #a18cd1, #fbc2eb);
+  transition: width 0.3s ease;
+}
+
+.nav-link-modern:hover {
+  color: #ffffff !important;
+  text-shadow: 0 0 8px rgba(251, 194, 235, 0.6);
+}
+
+.nav-link-modern:hover::after,
+.nav-link-modern.active::after {
+  width: 80%;
+}
+
+/* Hamburger Toggler Color Fix */
+.navbar-toggler {
+  border-color: rgba(255, 255, 255, 0.5) !important;
+}
+
+.navbar-toggler-icon {
+  filter: invert(1) !important;
+}
+
+/* =========================================
+   5. Hero & Home Components
+   ========================================= */
+.hero-section {
+  min-height: 100vh;
+  background: linear-gradient(rgba(15, 12, 41, 0.8), rgba(48, 43, 99, 0.8)), url('../src/assets/hero-bg.jpg');
+  background-size: cover;
+  background-position: center;
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  padding: 2rem;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.neon-avatar {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #a18cd1, #fbc2eb);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #302b63;
+  margin: 0 auto;
+  box-shadow: 0 0 15px rgba(161, 140, 209, 0.6);
+}
+
+.student-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 30px rgba(161, 140, 209, 0.3);
+  border-color: #a18cd1;
+}
+
+/* =========================================
+   6. Cards, Forms & Tables
+   ========================================= */
+.card {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: rgb(143, 143, 143);
+  border-radius: 20px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+input {
+  background: rgba(255, 255, 255, 0.9) !important;
+  border: 1px solid rgba(161, 140, 209, 0.5) !important;
+  color: #333 !important;
+  border-radius: 10px !important;
+  padding: 12px 15px !important;
+}
+
+input:focus {
+  box-shadow: 0 0 15px rgba(161, 140, 209, 0.6) !important;
+  border-color: #fbc2eb !important;
+}
+
+.btn-hover {
+  background: linear-gradient(90deg, #a18cd1, #fbc2eb);
+  border: none;
+  font-weight: 600;
+  color: #302b63;
+  transition: all 0.3s ease;
+}
+
+.btn-hover:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 20px rgba(251, 194, 235, 0.6);
+  color: #fff;
+}
+
+/* Base Container for table */
+.table-wrapper { width: 100%; padding: 20px; box-sizing: border-box; }
+
+.modern-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 10px;
+}
+
+/* Desktop Header */
+.modern-table thead th {
+  background: rgba(161, 140, 209, 0.3);
+  color: #fff;
+  padding: 15px;
+  text-align: center;
+}
+
+/* Rows */
+.modern-table tbody tr {
+  background: rgba(255, 255, 255, 0.08);
+  transition: 0.3s;
+}
+
+.modern-table tbody td {
+  padding: 15px;
+  text-align: center;
+  color: #000;
+}
+
+/* Button Styles */
+.btn-action { padding: 5px 12px; border: none; border-radius: 5px; cursor: pointer; margin: 0 5px; }
+.btn-warning { background: #ffc107; }
+.btn-danger { background: #dc3545; color: #fff; }
+
+/* =========================================
+   7. Footer Styles
+   ========================================= */
+.modern-footer {
+  background: rgba(17, 25, 40, 0.85) !important;
+  backdrop-filter: blur(16px) saturate(180%) !important;
+  border-top: 1px solid rgba(161, 140, 209, 0.3) !important;
+  box-shadow: 0 -4px 30px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  position: relative !important;
+  z-index: 10;
+}
+
+.footer-brand-text {
+  background: linear-gradient(90deg,#4ae5fd, #ec4c20, #7336ff, #eb27b3, #eb6464);
+  background-size: 300% 300%; 
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 800;
+  font-size: 1.5rem;
+  
+  animation: gradientShifts 4s ease infinite;
+}
+
+@keyframes gradientShifts {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.footer-link {
+  color: rgba(255, 255, 255, 0.7) !important;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.footer-link:hover {
+  color: #ffffff !important;
+  text-shadow: 0 0 8px rgba(251, 194, 235, 0.4);
+}
+
+.social-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: rgba(255, 255, 255, 0.8);
+  margin: 0 5px;
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+
+.social-icon:hover {
+  background: linear-gradient(135deg, #7452c2, #7c426c);
+  color: #000000;
+  border-color: transparent;
+  transform: translateY(-3px);
+  box-shadow: 0 0 15px rgba(161, 140, 209, 0.647);
+}
+
+/* =========================================
+   8. Responsive Fixes
+   ========================================= */
+@media (max-width: 768px) {
+  .main-content {
+    padding-top: 70px;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+
+  .view-heading {
+    font-size: 1.8rem;
+  }
+
+  .hero-section h1 {
+    font-size: 2.5rem;
+  }
+}
+
+@media screen and (max-width: 768px) {
+ 
+  .modern-table thead { 
+    display: none; 
+  }
+ 
+  .modern-table, .modern-table tbody, .modern-table tr, .modern-table td {
+    display: block;
+    width: 100%;
+  }
+
+  
+  .modern-table tbody tr {
+    margin-bottom: 15px; 
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 10px !important; 
+    border: 1px solid rgba(161, 140, 209, 0.2);
+    overflow: hidden; 
+  }
+
+
+  .modern-table tbody td {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-align: right;
+    padding: 12px 10px !important;
+    border: none !important;
+   }
+
+ 
+  .modern-table tbody td::before {
+    content: attr(data-label);
+    font-weight: 600;
+    color: #333;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+  }
+}
