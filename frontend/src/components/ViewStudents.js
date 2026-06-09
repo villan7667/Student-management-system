@@ -28,7 +28,7 @@ const ViewStudents = () => {
     try {
 
       const response = await axios.get(
-        `${process.env.REACT_APP_API_URL}/getStudents`
+        `${API_URL}/getStudents`
       );
 
       setStudents(response.data);
@@ -50,7 +50,7 @@ const ViewStudents = () => {
     try {
 
       await axios.delete(
-        `${process.env.REACT_APP_API_URL}/deleteStudent/${student.id}`
+        `${API_URL}/deleteStudent/${student.id}`
       );
 
       const result = await Swal.fire({
@@ -65,7 +65,7 @@ const ViewStudents = () => {
       if (result.dismiss === Swal.DismissReason.cancel) {
 
         await axios.post(
-          `${process.env.REACT_APP_API_URL}/addStudent`,
+          `${API_URL}/addStudent`,
           student
         );
 
@@ -104,7 +104,7 @@ const ViewStudents = () => {
     try {
 
       await axios.put(
-        `${process.env.REACT_APP_API_URL}/updateStudent`,
+        `${API_URL}/updateStudent`,
         editStudent
       );
 

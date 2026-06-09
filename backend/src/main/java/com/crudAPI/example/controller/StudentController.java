@@ -9,8 +9,12 @@ import com.crudAPI.example.entity.Students;
 import com.crudAPI.example.service.StudentService;
 
 
+
+@CrossOrigin(origins = "*")
 @RestController
 public class StudentController {
+
+
 
     @Autowired 
     private StudentService studentService;
