@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import com.crudAPI.example.entity.Students;
 import com.crudAPI.example.service.StudentService;
 
-@CrossOrigin(origins = "http://localhost:3000")
+
 @RestController
 public class StudentController {
 

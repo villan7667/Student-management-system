@@ -16,13 +16,14 @@ const AddStudent = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+
     if (student.id.trim() === "" || student.name.trim() === "") {
       Swal.fire("Warning", "Please fill in all fields", "warning");
       return;
     }
     try {
-      await axios.post("http://localhost:8003/addStudent", student);
+      await axios.post(`${process.env.REACT_APP_API_URL}/addStudent`, student);
+
       Swal.fire("Success!", "Student registered successfully.", "success");
       setStudent({ id: "", name: "", dept: "", age: "" });
     } catch (error) {
