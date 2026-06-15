@@ -133,8 +133,8 @@ const Footer = () => {
           <p className="mb-1 text-secondary small">
             &copy; 2026 Student Management System. All Rights Reserved.
           </p>
-          <small className="text-muted" style={{ fontSize: "0.75rem" }}>
-            Designed with React, Bootstrap, and Spring Boot
+          <small className="text-muted" style={{color: "#fffff", fontSize: "0.75rem" }}>
+            Designed by Er.Ankit Kumar ,React, MySql, and Spring Boot !
           </small>
         </div>
       </div>

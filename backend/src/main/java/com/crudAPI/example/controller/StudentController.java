@@ -1,50 +1,168 @@
 package com.crudAPI.example.controller;
 
 import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
+
+import jakarta.validation.Valid;
+
 import org.springframework.http.HttpStatus;
+
 import org.springframework.http.ResponseEntity;
+
 import org.springframework.web.bind.annotation.*;
+
 import com.crudAPI.example.entity.Students;
+
 import com.crudAPI.example.service.StudentService;
 
-
-
 @CrossOrigin(origins = "*")
+
 @RestController
+
+@RequestMapping("/students")
+
 public class StudentController {
 
+    private final StudentService studentService;
 
+    public StudentController(
+            StudentService studentService) {
 
-    @Autowired 
-    private StudentService studentService;
-    
-    
-    @PostMapping("/addStudent")
-    public ResponseEntity<?> addStudent(@RequestBody Students students) {  
+        this.studentService = studentService;
+
+    }
+
+    @PostMapping
+
+    public ResponseEntity<?> addStudent(
+
+            @Valid
+
+            @RequestBody
+
+            Students students
+
+    ) {
+
         try {
-            Students savedStudent = studentService.addStudent(students);
-            return ResponseEntity.ok(savedStudent);
-        } catch (Exception e) {
-            if (e.getMessage().equals("ID_ALREADY_EXISTS")) {
-                return ResponseEntity.status(HttpStatus.CONFLICT).body("ID already exists");
-            }
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error occurred");
+
+            Students savedStudent =
+
+                    studentService
+                            .addStudent(
+                                    students);
+
+            return ResponseEntity
+                    .status(
+                            HttpStatus.CREATED)
+                    .body(
+                            savedStudent);
+
         }
+
+        catch (Exception e) {
+
+            return ResponseEntity
+                    .status(
+                            HttpStatus.CONFLICT)
+                    .body(
+                            e.getMessage());
+
+        }
+
     }
-    
-    @GetMapping("/getStudents")
-    public List<Students> getAllStudents() {
-        return studentService.getAllStudens();
+
+    @GetMapping
+
+    public ResponseEntity<List<Students>>
+
+            getAllStudents() {
+
+        return ResponseEntity
+                .ok(
+
+                        studentService
+                                .getAllStudents()
+
+                );
+
     }
-    
-    @PutMapping("/updateStudent")
-    public Students updateStudent(@RequestBody Students students) {
-        return studentService.updateStudent(students); 
+
+    @PutMapping
+
+    public ResponseEntity<?>
+
+            updateStudent(
+
+                    @Valid
+
+                    @RequestBody
+
+                    Students students
+
+    ) {
+
+        try {
+
+            Students updatedStudent =
+
+                    studentService
+                            .updateStudent(
+                                    students);
+
+            return ResponseEntity
+                    .ok(
+                            updatedStudent);
+
+        }
+
+        catch (Exception e) {
+
+            return ResponseEntity
+                    .status(
+                            HttpStatus.NOT_FOUND)
+                    .body(
+                            e.getMessage());
+
+        }
+
     }
-    
-    @DeleteMapping("/deleteStudent/{id}")
-    public boolean deleteStudent(@PathVariable int id) {
-        return studentService.deleteStudent(id);
+
+    @DeleteMapping("/{id}")
+
+    public ResponseEntity<?>
+
+            deleteStudent(
+
+                    @PathVariable
+
+                    int id
+
+    ) {
+
+        boolean deleted =
+
+                studentService
+                        .deleteStudent(
+                                id);
+
+        if (
+
+        deleted
+
+        ) {
+
+            return ResponseEntity
+                    .ok(
+                            "Student deleted successfully");
+
+        }
+
+        return ResponseEntity
+                .status(
+                        HttpStatus.NOT_FOUND)
+                .body(
+                        "Student not found");
+
     }
+
 }

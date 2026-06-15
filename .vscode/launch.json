@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-CrudOperationsApplication<CRUD-Operations>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.crudAPI.example.CrudOperationsApplication",
+            "projectName": "CRUD-Operations",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}

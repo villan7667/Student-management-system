@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
 
 /* =========================================
-   1. Global Styles, Layout & Neon Scrollbar
+   1. Global Styles, villan@7667
    ========================================= */
 
 #root,
@@ -203,6 +203,8 @@ body {
 /* =========================================
    6. Cards, Forms & Tables
    ========================================= */
+
+/* Card Styles - Merged and Fixed */
 .card {
   background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(15px);
@@ -210,22 +212,45 @@ body {
   color: rgb(143, 143, 143);
   border-radius: 20px;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: all 0.3s ease;
 }
 
-input {
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+  border-color: #a18cd1;
+}
+
+/* Form Controls - Merged Inputs */
+input,
+.form-control,
+.form-select {
   background: rgba(255, 255, 255, 0.9) !important;
   border: 1px solid rgba(161, 140, 209, 0.5) !important;
   color: #333 !important;
   border-radius: 10px !important;
   padding: 12px 15px !important;
+  transition: all 0.3s ease;
 }
 
-input:focus {
+input:focus,
+.form-control:focus,
+.form-select:focus {
   box-shadow: 0 0 15px rgba(161, 140, 209, 0.6) !important;
   border-color: #fbc2eb !important;
+  transform: scale(1.02);
 }
 
+.form-control::placeholder {
+  transition: all 0.3s ease;
+}
+
+.form-control:focus::placeholder {
+  transform: translateY(-20px);
+  opacity: 0.5;
+}
+
+/* Button Styles - Merged and Fixed */
 .btn-hover {
   background: linear-gradient(90deg, #a18cd1, #fbc2eb);
   border: none;
@@ -240,8 +265,68 @@ input:focus {
   color: #fff;
 }
 
+.btn-primary {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border: none;
+  padding: 12px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.btn-primary:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+}
+
+.btn-primary:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-primary:disabled::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  animation: loading 1.5s infinite;
+}
+
+.btn-action { 
+  padding: 5px 12px; 
+  border: none; 
+  border-radius: 5px; 
+  cursor: pointer; 
+  margin: 0 5px; 
+}
+
+.btn-warning { background: #ffc107; }
+.btn-danger { background: #dc3545; color: #fff; }
+
+/* Modal & Label Styles */
+.modal-content {
+  color: black !important;
+}
+
+.modal-title {
+  color: black !important;
+}
+
+.form-label {
+  color: black !important;
+}
+
 /* Base Container for table */
-.table-wrapper { width: 100%; padding: 20px; box-sizing: border-box; }
+.table-wrapper { 
+  width: 100%; 
+  padding: 20px; 
+  box-sizing: border-box; 
+}
 
 .modern-table {
   width: 100%;
@@ -261,6 +346,7 @@ input:focus {
 .modern-table tbody tr {
   background: rgba(255, 255, 255, 0.08);
   transition: 0.3s;
+  border-radius: 10px;
 }
 
 .modern-table tbody td {
@@ -269,10 +355,83 @@ input:focus {
   color: #000;
 }
 
-/* Button Styles */
-.btn-action { padding: 5px 12px; border: none; border-radius: 5px; cursor: pointer; margin: 0 5px; }
-.btn-warning { background: #ffc107; }
-.btn-danger { background: #dc3545; color: #fff; }
+.modern-table tbody tr:hover {
+  background: rgba(255, 255, 255, 0.15);
+  transform: scale(1.02);
+}
+/* Custom Smooth Dropdown Animation */
+.form-select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%23a18cd1' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E") !important;
+  background-repeat: no-repeat !important;
+  background-position: calc(100% - 15px) center !important;
+  background-size: 14px !important;
+  cursor: pointer;
+  position: relative;
+}
+
+.form-select:focus {
+  box-shadow: 0 0 15px rgba(161, 140, 209, 0.6) !important;
+  border-color: #fbc2eb !important;
+  transform: scale(1.02);
+}
+
+/* Hide native dropdown list */
+.form-select option {
+  display: none;
+}
+
+/* Custom Dropdown Container */
+.custom-select-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.custom-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background: #302b63;
+  border: 1px solid rgba(161, 140, 209, 0.5);
+  border-radius: 10px;
+  margin-top: 5px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+  overflow: hidden;
+  
+  /* Smooth Animation Properties */
+  opacity: 0;
+  max-height: 0;
+  transform: translateY(-10px);
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  pointer-events: none;
+}
+
+/* Active State when Open */
+.custom-dropdown.open {
+  opacity: 1;
+  max-height: 250px;
+  transform: translateY(0);
+  pointer-events: auto;
+  overflow-y: auto;
+}
+
+.custom-option {
+  padding: 12px 15px;
+  color: #fff;
+  cursor: pointer;
+  transition: background 0.2s ease, padding-left 0.2s ease;
+}
+
+.custom-option:hover {
+  background: linear-gradient(90deg, #a18cd1, #fbc2eb);
+  color: #fff;
+  padding-left: 25px;
+}
+
 
 /* =========================================
    7. Footer Styles
@@ -298,6 +457,7 @@ input:focus {
   
   animation: gradientShifts 4s ease infinite;
 }
+
 
 @keyframes gradientShifts {
   0% {

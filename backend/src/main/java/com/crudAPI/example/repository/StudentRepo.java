@@ -1,12 +1,25 @@
 package com.crudAPI.example.repository;
 
+import java.util.Optional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
 
 import com.crudAPI.example.entity.Students;
 
-@Repository
-public interface StudentRepo extends JpaRepository<Students, Integer>{
-	
+public interface StudentRepo
+extends JpaRepository<
+Students,
+Integer
+>{
+
+Optional<Students>
+findByEmail(
+String email
+);
+
+Optional<Students>
+findByPhone(
+String phone
+);
 
 }
