@@ -2,6 +2,8 @@ import React, { useState, useRef, useEffect } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
 
+const API_URL = process.env.REACT_APP_API_URL;
+
 const AddStudent = () => {
   const [loading, setLoading] = useState(false);
   const [openDropdown, setOpenDropdown] = useState(null);
@@ -43,6 +45,7 @@ const AddStudent = () => {
     { value: "Other", label: "Other" },
   ];
 
+  // Logic Handlers
   const handleChange = (e) => {
     setStudent({ ...student, [e.target.name]: e.target.value });
   };
@@ -56,6 +59,7 @@ const AddStudent = () => {
     setOpenDropdown(null);
   };
 
+  // Close dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (wrapperRef.current && !wrapperRef.current.contains(e.target)) {
@@ -66,6 +70,7 @@ const AddStudent = () => {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
+  // Form Submission
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -77,12 +82,10 @@ const AddStudent = () => {
       Swal.fire("Invalid Name", "Only alphabets are allowed", "warning");
       return;
     }
-
     if (!emailRegex.test(student.email)) {
       Swal.fire("Invalid Email", "Please enter valid email", "warning");
       return;
     }
-
     if (!phoneRegex.test(student.phone)) {
       Swal.fire("Invalid Phone", "Phone must contain 10 digits starting with 6-9", "warning");
       return;
@@ -100,32 +103,15 @@ const AddStudent = () => {
       return;
     }
 
-    const cgpaNum = Number(student.cgpa);
-    if (student.cgpa && (cgpaNum < 0.0 || cgpaNum > 10.0)) {
-      Swal.fire("Invalid CGPA", "CGPA must be between 0.0 and 10.0", "warning");
-      return;
-    }
-
     try {
       setLoading(true);
-
-      // Updated endpoint to match backend StudentController.java @RequestMapping("/students")
-      await axios.post(`${process.env.REACT_APP_API_URL}/students`, student);
-
+      await axios.post(`${API_URL}/students`, student);
       Swal.fire("Success!", "Student Registered Successfully", "success");
 
       setStudent({
-        name: "",
-        email: "",
-        phone: "",
-        dept: "",
-        age: "",
-        gender: "",
-        semester: "",
-        cgpa: "",
-        address: "",
-        linkedin: "",
-        github: "",
+        name: "", email: "", phone: "", dept: "", age: "",
+        gender: "", semester: "", cgpa: "", address: "",
+        linkedin: "", github: "",
       });
     } catch (error) {
       if (error.response?.status === 409) {
@@ -133,7 +119,6 @@ const AddStudent = () => {
       } else {
         Swal.fire("Server Error", "Backend connection failed", "error");
       }
-      console.log(error);
     } finally {
       setLoading(false);
     }
@@ -146,196 +131,69 @@ const AddStudent = () => {
 
         <form onSubmit={handleSubmit}>
           <div className="row" ref={wrapperRef}>
-            
+            {/* Name & Email */}
             <div className="col-md-6 mb-3">
-              <input
-                type="text"
-                className="form-control input-animated"
-                name="name"
-                placeholder="Full Name"
-                value={student.name}
-                onChange={handleChange}
-                required
-                autoComplete="off"
-              />
+              <input type="text" className="form-control" name="name" placeholder="Full Name" value={student.name} onChange={handleChange} required autoComplete="off" />
+            </div>
+            <div className="col-md-6 mb-3">
+              <input type="email" className="form-control" name="email" placeholder="Email" value={student.email} onChange={handleChange} required />
             </div>
 
+            {/* Phone & Age */}
             <div className="col-md-6 mb-3">
-              <input
-                type="email"
-                className="form-control input-animated"
-                name="email"
-                placeholder="Email"
-                value={student.email}
-                onChange={handleChange}
-                required
-              />
+              <input type="text" className="form-control" name="phone" placeholder="Phone Number" value={student.phone} onChange={handleChange} required />
+            </div>
+            <div className="col-md-6 mb-3">
+              <input type="number" className="form-control" name="age" placeholder="Age" value={student.age} onChange={handleChange} required />
             </div>
 
-            <div className="col-md-6 mb-3">
-              <input
-                type="text"
-                className="form-control input-animated"
-                name="phone"
-                placeholder="Phone Number"
-                value={student.phone}
-                onChange={handleChange}
-                required
-              />
-            </div>
-
-            <div className="col-md-6 mb-3">
-              <input
-                type="number"
-                className="form-control input-animated"
-                name="age"
-                placeholder="Age"
-                value={student.age}
-                onChange={handleChange}
-                required
-              />
-            </div>
-
+            {/* Selects: Gender, Dept, Semester */}
             <div className="col-md-6 mb-3">
               <div className="custom-select-wrapper">
-                <input
-                  type="text"
-                  className="form-control input-animated"
-                  name="gender"
-                  placeholder="Select Gender"
-                  value={student.gender}
-                  readOnly
-                  onClick={() => handleDropdownToggle("gender")}
-                  required
-                />
+                <input type="text" className="form-control" name="gender" placeholder="Select Gender" value={student.gender} readOnly onClick={() => handleDropdownToggle("gender")} required />
                 <div className={`custom-dropdown ${openDropdown === "gender" ? "open" : ""}`}>
-                  {genders.map((g) => (
-                    <div
-                      key={g.value}
-                      className="custom-option"
-                      onClick={() => handleOptionClick("gender", g.value)}
-                    >
-                      {g.label}
-                    </div>
-                  ))}
+                  {genders.map((g) => <div key={g.value} className="custom-option" onClick={() => handleOptionClick("gender", g.value)}>{g.label}</div>)}
                 </div>
               </div>
             </div>
 
             <div className="col-md-6 mb-3">
               <div className="custom-select-wrapper">
-                <input
-                  type="text"
-                  className="form-control input-animated"
-                  name="dept"
-                  placeholder="Select Department"
-                  value={student.dept}
-                  readOnly
-                  onClick={() => handleDropdownToggle("dept")}
-                  required
-                />
+                <input type="text" className="form-control" name="dept" placeholder="Select Department" value={student.dept} readOnly onClick={() => handleDropdownToggle("dept")} required />
                 <div className={`custom-dropdown ${openDropdown === "dept" ? "open" : ""}`}>
-                  {depts.map((d) => (
-                    <div
-                      key={d.value}
-                      className="custom-option"
-                      onClick={() => handleOptionClick("dept", d.value)}
-                    >
-                      {d.label}
-                    </div>
-                  ))}
+                  {depts.map((d) => <div key={d.value} className="custom-option" onClick={() => handleOptionClick("dept", d.value)}>{d.label}</div>)}
                 </div>
               </div>
             </div>
 
             <div className="col-md-6 mb-3">
               <div className="custom-select-wrapper">
-                <input
-                  type="text"
-                  className="form-control input-animated"
-                  name="semester"
-                  placeholder="Select Semester"
-                  value={student.semester}
-                  readOnly
-                  onClick={() => handleDropdownToggle("semester")}
-                  required
-                />
+                <input type="text" className="form-control" name="semester" placeholder="Select Semester" value={student.semester} readOnly onClick={() => handleDropdownToggle("semester")} required />
                 <div className={`custom-dropdown ${openDropdown === "semester" ? "open" : ""}`}>
-                  {semesters.map((s) => (
-                    <div
-                      key={s.value}
-                      className="custom-option"
-                      onClick={() => handleOptionClick("semester", s.value)}
-                    >
-                      {s.label}
-                    </div>
-                  ))}
+                  {semesters.map((s) => <div key={s.value} className="custom-option" onClick={() => handleOptionClick("semester", s.value)}>{s.label}</div>)}
                 </div>
               </div>
             </div>
 
             <div className="col-md-6 mb-3">
-              <input
-                type="number"
-                step="0.1"
-                className="form-control input-animated"
-                name="cgpa"
-                placeholder="CGPA"
-                value={student.cgpa}
-                onChange={handleChange}
-              />
+              <input type="number" step="0.1" className="form-control" name="cgpa" placeholder="CGPA" value={student.cgpa} onChange={handleChange} />
             </div>
 
-            <div className="col-md-12 mb-4">
-              <input
-                type="text"
-                className="form-control input-animated"
-                name="linkedin"
-                placeholder="LinkedIn URL"
-                value={student.linkedin}
-                onChange={handleChange}
-              />
-            </div>
-
-            <div className="col-md-12 mb-4">
-              <input
-                type="text"
-                className="form-control input-animated"
-                name="github"
-                placeholder="GitHub URL"
-                value={student.github}
-                onChange={handleChange}
-              />
-            </div>
-
+            {/* Links & Address */}
             <div className="col-md-12 mb-3">
-              <textarea
-                className="form-control input-animated"
-                rows="3"
-                name="address"
-                placeholder="Address"
-                value={student.address}
-                onChange={handleChange}
-              />
+              <input type="text" className="form-control" name="linkedin" placeholder="LinkedIn URL" value={student.linkedin} onChange={handleChange} />
             </div>
-
+            <div className="col-md-12 mb-3">
+              <input type="text" className="form-control" name="github" placeholder="GitHub URL" value={student.github} onChange={handleChange} />
+            </div>
+            <div className="col-md-12 mb-3">
+              <textarea className="form-control" rows="3" name="address" placeholder="Address" value={student.address} onChange={handleChange} />
+            </div>
           </div>
 
-          <button
-            type="submit"
-            disabled={loading}
-            className="btn btn-primary btn-lg w-100 submit-btn"
-          >
-            {loading ? (
-              <span className="loading-text">
-                <span className="spinner-border spinner-border-sm me-2"></span>
-                Registering...
-              </span>
-            ) : (
-              "Register Student"
-            )}
+          <button type="submit" disabled={loading} className="btn btn-primary btn-lg w-100">
+            {loading ? "Registering..." : "Register Student"}
           </button>
-
         </form>
       </div>
     </div>
