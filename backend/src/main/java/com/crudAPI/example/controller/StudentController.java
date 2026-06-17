@@ -22,147 +22,147 @@ import com.crudAPI.example.service.StudentService;
 
 public class StudentController {
 
-    private final StudentService studentService;
+        private final StudentService studentService;
 
-    public StudentController(
-            StudentService studentService) {
+        public StudentController(
+                        StudentService studentService) {
 
-        this.studentService = studentService;
-
-    }
-
-    @PostMapping
-
-    public ResponseEntity<?> addStudent(
-
-            @Valid
-
-            @RequestBody
-
-            Students students
-
-    ) {
-
-        try {
-
-            Students savedStudent =
-
-                    studentService
-                            .addStudent(
-                                    students);
-
-            return ResponseEntity
-                    .status(
-                            HttpStatus.CREATED)
-                    .body(
-                            savedStudent);
+                this.studentService = studentService;
 
         }
 
-        catch (Exception e) {
+        @PostMapping
 
-            return ResponseEntity
-                    .status(
-                            HttpStatus.CONFLICT)
-                    .body(
-                            e.getMessage());
+        public ResponseEntity<?> addStudent(
 
-        }
+                        @Valid
 
-    }
+                        @RequestBody
 
-    @GetMapping
-
-    public ResponseEntity<List<Students>>
-
-            getAllStudents() {
-
-        return ResponseEntity
-                .ok(
-
-                        studentService
-                                .getAllStudents()
-
-                );
-
-    }
-
-    @PutMapping
-
-    public ResponseEntity<?>
-
-            updateStudent(
-
-                    @Valid
-
-                    @RequestBody
-
-                    Students students
-
-    ) {
-
-        try {
-
-            Students updatedStudent =
-
-                    studentService
-                            .updateStudent(
-                                    students);
-
-            return ResponseEntity
-                    .ok(
-                            updatedStudent);
-
-        }
-
-        catch (Exception e) {
-
-            return ResponseEntity
-                    .status(
-                            HttpStatus.NOT_FOUND)
-                    .body(
-                            e.getMessage());
-
-        }
-
-    }
-
-    @DeleteMapping("/{id}")
-
-    public ResponseEntity<?>
-
-            deleteStudent(
-
-                    @PathVariable
-
-                    int id
-
-    ) {
-
-        boolean deleted =
-
-                studentService
-                        .deleteStudent(
-                                id);
-
-        if (
-
-        deleted
+                        Students students
 
         ) {
 
-            return ResponseEntity
-                    .ok(
-                            "Student deleted successfully");
+                try {
+
+                        Students savedStudent =
+
+                                        studentService
+                                                        .addStudent(
+                                                                        students);
+
+                        return ResponseEntity
+                                        .status(
+                                                        HttpStatus.CREATED)
+                                        .body(
+                                                        savedStudent);
+
+                }
+
+                catch (Exception e) {
+
+                        return ResponseEntity
+                                        .status(
+                                                        HttpStatus.CONFLICT)
+                                        .body(
+                                                        e.getMessage());
+
+                }
 
         }
 
-        return ResponseEntity
-                .status(
-                        HttpStatus.NOT_FOUND)
-                .body(
-                        "Student not found");
+        @GetMapping
 
-    }
+        public ResponseEntity<List<Students>>
+
+                        getAllStudents() {
+
+                return ResponseEntity
+                                .ok(
+
+                                                studentService
+                                                                .getAllStudents()
+
+                                );
+
+        }
+
+        @PutMapping
+
+        public ResponseEntity<?>
+
+                        updateStudent(
+
+                                        @Valid
+
+                                        @RequestBody
+
+                                        Students students
+
+        ) {
+
+                try {
+
+                        Students updatedStudent =
+
+                                        studentService
+                                                        .updateStudent(
+                                                                        students);
+
+                        return ResponseEntity
+                                        .ok(
+                                                        updatedStudent);
+
+                }
+
+                catch (Exception e) {
+
+                        return ResponseEntity
+                                        .status(
+                                                        HttpStatus.NOT_FOUND)
+                                        .body(
+                                                        e.getMessage());
+
+                }
+
+        }
+
+        @DeleteMapping("/{id}")
+
+        public ResponseEntity<?>
+
+                        deleteStudent(
+
+                                        @PathVariable
+
+                                        int id
+
+        ) {
+
+                boolean deleted =
+
+                                studentService
+                                                .deleteStudent(
+                                                                id);
+
+                if (
+
+                deleted
+
+                ) {
+
+                        return ResponseEntity
+                                        .ok(
+                                                        "Student deleted successfully");
+
+                }
+
+                return ResponseEntity
+                                .status(
+                                                HttpStatus.NOT_FOUND)
+                                .body(
+                                                "Student not found");
+
+        }
 
 }

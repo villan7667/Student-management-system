@@ -11,214 +11,176 @@ import com.crudAPI.example.repository.StudentRepo;
 @Service
 public class StudentService {
 
-    private final StudentRepo studentRepo;
+        private final StudentRepo studentRepo;
+        public StudentService(StudentRepo studentRepo) {
+                this.studentRepo = studentRepo;
+        }
+        public Students addStudent(Students student) 
+        throws Exception {
+                if (studentRepo.findByEmail(student.getEmail()).isPresent())
+                        {throw new Exception("Email already exists");}
 
-    public StudentService(
-            StudentRepo studentRepo) {
+                if (studentRepo.findByPhone(student.getPhone()).isPresent())
+                        {throw new Exception("Phone already exists");}
+                
+                return studentRepo.save(student);
+        }
 
-        this.studentRepo = studentRepo;
+        public List<Students> getAllStudents() {
+                return studentRepo.findAll();
+        }
 
-    }
+        public Students updateStudent(
 
-    public Students addStudent(
-
-            Students student
-
-    ) throws Exception {
-
-        if (
-
-        studentRepo
-                .findByEmail(
-                        student.getEmail())
-                .isPresent()
+                        Students students
 
         ) {
 
-            throw new Exception(
-                    "Email already exists");
+                Students existingStudent =
+
+                                studentRepo
+                                                .findById(
+                                                                students.getId())
+
+                                                .orElseThrow(
+
+                                                                () ->
+
+                                                                new RuntimeException(
+                                                                                "Student not found")
+
+                                                );
+
+                Optional<Students>
+
+                email =
+
+                                studentRepo
+                                                .findByEmail(
+                                                                students.getEmail());
+
+                if (
+
+                email.isPresent()
+
+                                &&
+
+                                email.get()
+                                                .getId()
+
+                                                !=
+
+                                                students.getId()
+
+                ) {
+
+                        throw new RuntimeException(
+                                        "Email already exists");
+
+                }
+
+                Optional<Students>
+
+                phone =
+
+                                studentRepo
+                                                .findByPhone(
+                                                                students.getPhone());
+
+                if (
+
+                phone.isPresent()
+
+                                &&
+
+                                phone.get()
+                                                .getId()
+
+                                                !=
+
+                                                students.getId()
+
+                ) {
+
+                        throw new RuntimeException(
+                                        "Phone already exists");
+
+                }
+
+                existingStudent
+                                .setName(
+                                                students.getName());
+
+                existingStudent
+                                .setAge(
+                                                students.getAge());
+
+                existingStudent
+                                .setDept(
+                                                students.getDept());
+
+                existingStudent
+                                .setEmail(
+                                                students.getEmail());
+
+                existingStudent
+                                .setPhone(
+                                                students.getPhone());
+
+                existingStudent
+                                .setGender(
+                                                students.getGender());
+
+                existingStudent
+                                .setSemester(
+                                                students.getSemester());
+
+                existingStudent
+                                .setCgpa(
+                                                students.getCgpa());
+
+                existingStudent
+                                .setAddress(
+                                                students.getAddress());
+
+                existingStudent
+                                .setLinkedin(
+                                                students.getLinkedin());
+
+                existingStudent
+                                .setGithub(
+                                                students.getGithub());
+
+                return studentRepo
+                                .save(
+                                                existingStudent);
 
         }
 
-        if (
+        public Boolean deleteStudent(
 
-        studentRepo
-                .findByPhone(
-                        student.getPhone())
-                .isPresent()
+                        int id
 
         ) {
 
-            throw new Exception(
-                    "Phone already exists");
-
-        }
-
-        return studentRepo
-                .save(
-                        student);
-
-    }
-
-    public List<Students>
-    getAllStudents() {
-
-        return studentRepo
-                .findAll();
-
-    }
-
-    public Students updateStudent(
-
-            Students students
-
-    ) {
-
-        Students existingStudent =
+                if (
 
                 studentRepo
-                        .findById(
-                                students.getId())
+                                .existsById(
+                                                id)
 
-                        .orElseThrow(
+                ) {
 
-                                () ->
+                        studentRepo
+                                        .deleteById(
+                                                        id);
 
-                                new RuntimeException(
-                                        "Student not found")
+                        return true;
 
-                        );
+                }
 
-        Optional<Students>
-
-        email =
-
-                studentRepo
-                        .findByEmail(
-                                students.getEmail());
-
-        if (
-
-        email.isPresent()
-
-                &&
-
-                email.get()
-                        .getId()
-
-                        !=
-
-                        students.getId()
-
-        ) {
-
-            throw new RuntimeException(
-                    "Email already exists");
+                return false;
 
         }
-
-        Optional<Students>
-
-        phone =
-
-                studentRepo
-                        .findByPhone(
-                                students.getPhone());
-
-        if (
-
-        phone.isPresent()
-
-                &&
-
-                phone.get()
-                        .getId()
-
-                        !=
-
-                        students.getId()
-
-        ) {
-
-            throw new RuntimeException(
-                    "Phone already exists");
-
-        }
-
-        existingStudent
-                .setName(
-                        students.getName());
-
-        existingStudent
-                .setAge(
-                        students.getAge());
-
-        existingStudent
-                .setDept(
-                        students.getDept());
-
-        existingStudent
-                .setEmail(
-                        students.getEmail());
-
-        existingStudent
-                .setPhone(
-                        students.getPhone());
-
-        existingStudent
-                .setGender(
-                        students.getGender());
-
-        existingStudent
-                .setSemester(
-                        students.getSemester());
-
-        existingStudent
-                .setCgpa(
-                        students.getCgpa());
-
-        existingStudent
-                .setAddress(
-                        students.getAddress());
-
-        existingStudent
-                .setLinkedin(
-                        students.getLinkedin());
-
-        existingStudent
-                .setGithub(
-                        students.getGithub());
-
-        return studentRepo
-                .save(
-                        existingStudent);
-
-    }
-
-    public Boolean deleteStudent(
-
-            int id
-
-    ) {
-
-        if (
-
-        studentRepo
-                .existsById(
-                        id)
-
-        ) {
-
-            studentRepo
-                    .deleteById(
-                            id);
-
-            return true;
-
-        }
-
-        return false;
-
-    }
 
 }
