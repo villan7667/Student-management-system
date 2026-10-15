@@ -9,6 +9,6 @@ RUN chmod +x mvnw
 
 RUN ./mvnw clean install -DskipTests
 
-EXPOSE 8080
+EXPOSE 10000
 
 CMD ["java", "-jar", "target/CRUD-Operations-0.0.1-SNAPSHOT.jar"]
