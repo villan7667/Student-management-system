@@ -17,7 +17,7 @@ A comprehensive student management system built with React and Spring boot , fea
 <img width="1897" height="870" alt="image" src="https://github.com/user-attachments/assets/15311808-e459-4d32-ba48-fab27bc7d8d0" /><br><br>
 
 <img width="1457" height="880" alt="image" src="https://github.com/user-attachments/assets/dc42e1be-174a-4844-afa9-a745f0612f44" /><br><br>
-<img width="1632" height="817" alt="image" src="https://github.com/user-attachments/assets/a0a0b5a4-88af-4915-b252-6e7da0e28360" />
+
 
    
 
