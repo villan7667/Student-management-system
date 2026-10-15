@@ -4,7 +4,7 @@
 A comprehensive student management system built with React and Spring boot , featuring a modern UI with multiple components for student data management. The system provides full CRUD operations for student records with a responsive design.
 ---
 <p align="center">
-  <a href="https://explore-jharkhand.onrender.com">
+  <a href="https://student-management-system-palle.onrender.com/">
     <img src="https://img.shields.io/badge/Live%20Demo-🌐%20Visit-green?style=for-the-badge" alt="Live Demo"/>
   </a>
 </p>
@@ -14,9 +14,9 @@ A comprehensive student management system built with React and Spring boot , fea
 
 <p align="center"><i>Interactive snapshots from Acadmic Portal ,</i></p>
 
-<img width="1910" height="878" alt="image" src="https://github.com/user-attachments/assets/a782f4d8-3c17-4fa6-be69-67bdc5d22533" /><br><br>
+<img width="1897" height="870" alt="image" src="https://github.com/user-attachments/assets/15311808-e459-4d32-ba48-fab27bc7d8d0" /><br><br>
 
-<img width="1911" height="871" alt="image" src="https://github.com/user-attachments/assets/d9da28c9-6151-4e60-b6fa-017b6dbbaab5" /><br><br>
+<img width="1457" height="880" alt="image" src="https://github.com/user-attachments/assets/dc42e1be-174a-4844-afa9-a745f0612f44" /><br><br>
 <img width="1632" height="817" alt="image" src="https://github.com/user-attachments/assets/a0a0b5a4-88af-4915-b252-6e7da0e28360" />
 
    
